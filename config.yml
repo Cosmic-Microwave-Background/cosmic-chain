@@ -1,9 +1,21 @@
 version: 1
 accounts:
   - name: user1
-    coins: ["1000token", "100000000stake"]
+    coins: [ "1000token", "100000000cmb" ]
   - name: user2
-    coins: ["500token"]
+    coins: [ "500token" ]
 validator:
   name: user1
-  staked: "100000000stake"
+  staked: "100000000cmb"
+
+genesis:
+  app_state:
+    mint:
+      params:
+        inflation_rate_change: "0"
+        inflation_max: "0"
+        inflation_min: "0"
+
+    staking:
+      params:
+        bond_denom: "cmb"
