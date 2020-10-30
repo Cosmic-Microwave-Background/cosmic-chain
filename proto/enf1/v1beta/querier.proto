@@ -3,6 +3,7 @@ package enf1.enf1.v1beta1;
 
 import "cosmos/base/query/v1beta1/pagination.proto";
 // this line is used by starport scaffolding # 1
+import "enf1/v1beta/action.proto";
 
 
 option go_package = "github.com/enflow.io/enf1/x/enf1/types";
@@ -10,6 +11,15 @@ option go_package = "github.com/enflow.io/enf1/x/enf1/types";
 // Query defines the gRPC querier service.
 service Query {
     // this line is used by starport scaffolding # 2
+	rpc AllAction(QueryAllActionRequest) returns (QueryAllActionResponse);
 }
 
 // this line is used by starport scaffolding # 3
+message QueryAllActionRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllActionResponse {
+	repeated MsgAction action = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
