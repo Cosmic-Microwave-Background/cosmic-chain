@@ -1,12 +1,12 @@
 version: 1
 accounts:
   - name: user1
-    coins: [ "1000token", "100000000cmb" ]
+    coins: [ "1000token", "10000000000cmb" ]
   - name: user2
     coins: [ "500token" ]
 validator:
   name: user1
-  staked: "100000000cmb"
+  staked: "1000000000cmb"
 
 genesis:
   app_state:

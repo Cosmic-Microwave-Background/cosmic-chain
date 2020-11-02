@@ -16,14 +16,20 @@ type (
 		storeKey   sdk.StoreKey
 		memKey     sdk.StoreKey
 		bankKeeper types.BankKeeper
+		stakingKeeper types.StakingKeeper
+		accountKeeper types.AccountKeeper
 	}
 )
 
-func NewKeeper(cdc codec.Marshaler, storeKey, memKey sdk.StoreKey) *Keeper {
+func NewKeeper(cdc codec.Marshaler, storeKey, memKey sdk.StoreKey, bankKeeper types.BankKeeper,
+	stakingKeeper types.StakingKeeper, accountKeeper types.AccountKeeper ) *Keeper {
 	return &Keeper{
 		cdc:      cdc,
 		storeKey: storeKey,
 		memKey:   memKey,
+		bankKeeper: bankKeeper,
+		stakingKeeper: stakingKeeper,
+		accountKeeper: accountKeeper,
 	}
 }
 

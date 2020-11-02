@@ -15,11 +15,11 @@ import (
 var _ = strconv.Itoa(42)
 
 type createActionRequest struct {
-	BaseReq rest.BaseReq `json:"base_req"`
-	Creator string `json:"creator"`
-	Receiver string `json:"receiver"`
-	Amount string `json:"amount"`
-	
+	BaseReq  rest.BaseReq `json:"base_req"`
+	Creator  string       `json:"creator"`
+	Receiver string       `json:"receiver"`
+	Amount   string       `json:"amount"`
+	Denom    string       `json:"denom"`
 }
 
 func createActionHandler(clientCtx client.Context) http.HandlerFunc {
@@ -42,16 +42,17 @@ func createActionHandler(clientCtx client.Context) http.HandlerFunc {
 		}
 
 		
-		parsedReceiver := req.Receiver
+		parsedReceiver := sdk.AccAddress(req.Receiver)
 		
 		parsedAmount := req.Amount
+		parsedDenom := req.Denom
 		
 
 		msg := types.NewMsgAction(
 			creator,
 			parsedReceiver,
 			parsedAmount,
-			
+			parsedDenom,
 		)
 
 		tx.WriteGeneratedTxResponse(clientCtx, w, req.BaseReq, msg)

@@ -2,7 +2,9 @@ package types
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	authTypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	bankexported "github.com/cosmos/cosmos-sdk/x/bank/exported"
+	"github.com/cosmos/cosmos-sdk/x/staking/types"
 )
 
 // BankKeeper defines the expected interface needed to retrieve account balances.
@@ -21,3 +23,31 @@ type BankKeeper interface {
 
 	BurnCoins(ctx sdk.Context, name string, amt sdk.Coins) error
 }
+
+type StakingKeeper interface {
+	StakingTokenSupply(ctx sdk.Context) sdk.Int
+	BondedRatio(ctx sdk.Context) sdk.Dec
+	GetDelegation(ctx sdk.Context, delAddr sdk.AccAddress, valAddr sdk.ValAddress) (delegation types.Delegation, found bool)
+	GetAllDelegatorDelegations(ctx sdk.Context, delegator sdk.AccAddress) []types.Delegation
+}
+
+
+type AccountKeeper interface {
+	NewAccount(sdk.Context, authTypes.AccountI) authTypes.AccountI
+	NewAccountWithAddress(ctx sdk.Context, addr sdk.AccAddress) authTypes.AccountI
+
+	GetAccount(ctx sdk.Context, addr sdk.AccAddress) authTypes.AccountI
+	GetAllAccounts(ctx sdk.Context) []authTypes.AccountI
+	SetAccount(ctx sdk.Context, acc authTypes.AccountI)
+
+	IterateAccounts(ctx sdk.Context, process func(authTypes.AccountI) bool)
+
+	ValidatePermissions(macc authTypes.ModuleAccountI) error
+
+	GetModuleAddress(moduleName string) sdk.AccAddress
+	GetModuleAddressAndPermissions(moduleName string) (addr sdk.AccAddress, permissions []string)
+	GetModuleAccountAndPermissions(ctx sdk.Context, moduleName string) (authTypes.ModuleAccountI, []string)
+	GetModuleAccount(ctx sdk.Context, moduleName string) authTypes.ModuleAccountI
+	SetModuleAccount(ctx sdk.Context, macc authTypes.ModuleAccountI)
+}
+
