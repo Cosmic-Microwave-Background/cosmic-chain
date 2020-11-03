@@ -4,6 +4,11 @@ accounts:
     coins: [ "1000token", "10000000000cmb" ]
   - name: user2
     coins: [ "500token" ]
+  - name: kepler
+    address: cosmos1c297nt22qwtceatd0mts4uxqftchpcez649nr0
+    mnemonic: delay kangaroo praise basket zone cricket emotion wink apology fragile fee egg spring old renew toy anger open crazy section axis civil organ spin
+    coins: [ "500cmb" ]
+
 validator:
   name: user1
   staked: "1000000000cmb"
